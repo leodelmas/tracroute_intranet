@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PlannedSlot{% endblock %}
+
+{% block body %}
+    <h1>PlannedSlot</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ planned_slot.id }}</td>
+            </tr>
+            <tr>
+                <th>Start</th>
+                <td>{{ planned_slot.start ? planned_slot.start|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>End</th>
+                <td>{{ planned_slot.end ? planned_slot.end|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ planned_slot.name }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ planned_slot.description }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_planned_slot_index') }}">back to list</a>
+
+    <a href="{{ path('app_planned_slot_edit', {'id': planned_slot.id}) }}">edit</a>
+
+    {{ include('planned_slot/_delete_form.html.twig') }}
+{% endblock %}

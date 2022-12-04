@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PlannedSlot index{% endblock %}
+
+{% block body %}
+    <h1>PlannedSlot index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for planned_slot in planned_slots %}
+            <tr>
+                <td>{{ planned_slot.id }}</td>
+                <td>{{ planned_slot.start ? planned_slot.start|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ planned_slot.end ? planned_slot.end|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ planned_slot.name }}</td>
+                <td>{{ planned_slot.description }}</td>
+                <td>
+                    <a href="{{ path('app_planned_slot_show', {'id': planned_slot.id}) }}">show</a>
+                    <a href="{{ path('app_planned_slot_edit', {'id': planned_slot.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_planned_slot_new') }}">Create new</a>
+{% endblock %}

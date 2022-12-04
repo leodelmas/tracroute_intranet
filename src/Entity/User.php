@@ -33,9 +33,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: HolidaysPeriod::class, orphanRemoval: true)]
     private Collection $holidaysPeriods;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: PlannedSlot::class, orphanRemoval: true)]
+    private Collection $plannedSlots;
+
     public function __construct()
     {
         $this->holidaysPeriods = new ArrayCollection();
+        $this->plannedSlots = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -132,6 +136,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($holidaysPeriod->getUser() === $this) {
                 $holidaysPeriod->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PlannedSlot>
+     */
+    public function getPlannedSlots(): Collection
+    {
+        return $this->plannedSlots;
+    }
+
+    public function addPlannedSlot(PlannedSlot $plannedSlot): self
+    {
+        if (!$this->plannedSlots->contains($plannedSlot)) {
+            $this->plannedSlots->add($plannedSlot);
+            $plannedSlot->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePlannedSlot(PlannedSlot $plannedSlot): self
+    {
+        if ($this->plannedSlots->removeElement($plannedSlot)) {
+            // set the owning side to null (unless already changed)
+            if ($plannedSlot->getUser() === $this) {
+                $plannedSlot->setUser(null);
             }
         }
 
