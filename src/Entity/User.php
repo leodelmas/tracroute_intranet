@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -27,6 +29,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: HolidaysPeriod::class, orphanRemoval: true)]
+    private Collection $holidaysPeriods;
+
+    public function __construct()
+    {
+        $this->holidaysPeriods = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -96,5 +106,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection<int, HolidaysPeriod>
+     */
+    public function getHolidaysPeriods(): Collection
+    {
+        return $this->holidaysPeriods;
+    }
+
+    public function addHolidaysPeriod(HolidaysPeriod $holidaysPeriod): self
+    {
+        if (!$this->holidaysPeriods->contains($holidaysPeriod)) {
+            $this->holidaysPeriods->add($holidaysPeriod);
+            $holidaysPeriod->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHolidaysPeriod(HolidaysPeriod $holidaysPeriod): self
+    {
+        if ($this->holidaysPeriods->removeElement($holidaysPeriod)) {
+            // set the owning side to null (unless already changed)
+            if ($holidaysPeriod->getUser() === $this) {
+                $holidaysPeriod->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }

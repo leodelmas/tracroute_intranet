@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}HolidaysPeriod index{% endblock %}
+
+{% block body %}
+    <h1>HolidaysPeriod index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Comment</th>
+                <th>Approved</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for holidays_period in holidays_periods %}
+            <tr>
+                <td>{{ holidays_period.id }}</td>
+                <td>{{ holidays_period.start ? holidays_period.start|date('Y-m-d') : '' }}</td>
+                <td>{{ holidays_period.end ? holidays_period.end|date('Y-m-d') : '' }}</td>
+                <td>{{ holidays_period.comment }}</td>
+                <td>{{ holidays_period.approved ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_holidays_period_show', {'id': holidays_period.id}) }}">show</a>
+                    <a href="{{ path('app_holidays_period_edit', {'id': holidays_period.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_holidays_period_new') }}">Create new</a>
+{% endblock %}
