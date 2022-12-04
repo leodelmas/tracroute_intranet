@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ServiceNote index{% endblock %}
+
+{% block body %}
+    <h1>ServiceNote index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Object</th>
+                <th>Content</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for service_note in service_notes %}
+            <tr>
+                <td>{{ service_note.id }}</td>
+                <td>{{ service_note.object }}</td>
+                <td>{{ service_note.content }}</td>
+                <td>
+                    <a href="{{ path('app_service_note_show', {'id': service_note.id}) }}">show</a>
+                    <a href="{{ path('app_service_note_edit', {'id': service_note.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_service_note_new') }}">Create new</a>
+{% endblock %}
