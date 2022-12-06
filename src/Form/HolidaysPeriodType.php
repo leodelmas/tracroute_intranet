@@ -15,8 +15,6 @@ class HolidaysPeriodType extends AbstractType
             ->add('start')
             ->add('end')
             ->add('comment')
-            ->add('approved')
-            ->add('user')
         ;
     }
 

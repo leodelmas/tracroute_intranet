@@ -9,20 +9,33 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>User</th>
                 <th>Start</th>
                 <th>End</th>
                 <th>Comment</th>
                 <th>Approved</th>
+                <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for holidays_period in holidays_periods %}
             <tr>
                 <td>{{ holidays_period.id }}</td>
+                <td>{{ holidays_period.user.email }}</td>
                 <td>{{ holidays_period.start ? holidays_period.start|date('Y-m-d') : '' }}</td>
                 <td>{{ holidays_period.end ? holidays_period.end|date('Y-m-d') : '' }}</td>
                 <td>{{ holidays_period.comment }}</td>
                 <td>{{ holidays_period.approved ? 'Yes' : 'No' }}</td>
+                <td>
+                    <form method="post" action="{{ path('app_admin_holidays_period_approve', {'id': holidays_period.id}) }}">
+                         <input type="hidden" name="_token" value="{{ csrf_token('approve' ~ holidays_period.id) }}">
+                        <button class="btn">Approve</button>
+                    </form>
+                    <form method="post" action="{{ path('app_admin_holidays_period_refuse', {'id': holidays_period.id}) }}">
+                         <input type="hidden" name="_token" value="{{ csrf_token('refuse' ~ holidays_period.id) }}">
+                        <button class="btn">Refuse</button>
+                    </form>
+                </td>
             </tr>
         {% else %}
             <tr>
@@ -32,5 +45,4 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_holidays_period_new') }}">Create new</a>
 {% endblock %}
