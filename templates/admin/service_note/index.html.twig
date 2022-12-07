@@ -22,6 +22,7 @@
                 <td>{{ service_note.content }}</td>
                 <td>
                     <a href="{{ path('app_service_note_show', {'id': service_note.id}) }}">show</a>
+                    <a href="{{ path('app_admin_service_note_edit', {'id': service_note.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -31,4 +32,6 @@
         {% endfor %}
         </tbody>
     </table>
+
+    <a href="{{ path('app_admin_service_note_new') }}">Create new</a>
 {% endblock %}

@@ -5,7 +5,7 @@
 {% block body %}
     <h1>Create new ServiceNote</h1>
 
-    {{ include('service_note/_form.html.twig') }}
+    {{ include('admin/service_note/_form.html.twig') }}
 
-    <a href="{{ path('app_service_note_index') }}">back to list</a>
+    <a href="{{ path('app_admin_service_note_index') }}">back to list</a>
 {% endblock %}
