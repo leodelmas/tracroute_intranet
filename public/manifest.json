@@ -1,0 +1,13 @@
+{
+    "short_name": "Trac'Route Intranet",
+    "name": "Trac'Route Intranet",
+    "icons": [
+      {
+        "src": "icons-192.png",
+        "type": "image/png",
+        "sizes": "192x192"
+      }
+   ],
+    "start_url": "/",
+    "display": "standalone"
+}

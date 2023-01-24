@@ -10,3 +10,9 @@ import './scss/app.scss';
 
 // start the Stimulus application
 import './bootstrap';
+
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register(window.location.origin + '/sw.js')
+      .then(function () {console.log('Enregistrement reussi.')})
+      .catch(function (e) {console.error(e)});
+  }
