@@ -13,14 +13,14 @@
 					{{ news.title }}
 				</div>
 				<div class="card-body">
-					<p class="card-text">{{ news.content }}</p>
-					<a href="{{ path('app_news_show', {'id': news.id}) }}">{{ bootstrap_icon('eye') }}</a>
+					<p class="card-text">{{ news.content|slice(0, 150) ~ (news.content|length > 150 ? '...' : '') }}</p>
+					<a href="{{ path('app_news_show', {'id': news.id}) }}" class="btn btn-outline-primary">Lire {{ bootstrap_icon('eye') }}</a>
 				</div>
 			</div>
 		</div>
 	{% else %}
 		<tr>
-			<td colspan="5">no records found</td>
+			<td colspan="5">Aucun élément.</td>
 		</tr>
 	{% endfor %}
 {% endblock %}

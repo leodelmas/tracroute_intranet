@@ -1,23 +1,45 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Login{% endblock %}
-
-{% block body %}
-	{% if error %}
-		<div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-	{% endif %}
-
-	<form action="{{ path('app_login') }}" method="post">
-		<label for="username">Email:</label>
-		<input type="text" id="username" name="_username" value="{{ last_username }}">
-		<label for="password">Password:</label>
-		<input type="password" id="password" name="_password">
-
-		{# If you want to control the URL the user is redirected to on success
-		        <input type="hidden" name="_target_path" value="/account"> #}
-
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-
-		<button type="submit">login</button>
-	</form>
-{% endblock %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Se connecter{% endblock %}
+		</title>
+		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('app') }}
+		{% endblock %}
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+		{% endblock %}
+		<link rel="manifest" href="/manifest.json">
+	</head>
+	<body class="d-flex align-items-center py-4 bg-primary">
+		{% if error %}
+			<div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+		{% endif %}
+		<div class="container mt-5">
+			<div class="row d-flex justify-content-center">
+				<div class="col-md-6">
+					<div class="card px-5 py-5" id="form1">
+						<form action="{{ path('app_login') }}" method="post">
+							<div class="row g-3">
+								<div class="col-12">
+									<label for="username" class="form-label">E-mail</label>
+									<input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control">
+								</div>
+								<div class="col-12">
+									<label for="password" class="form-label">Mot de passe</label>
+									<input type="password" id="password" name="_password" class="form-control">
+								</div>
+								<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+								<input type="hidden" name="_target_path" value="/">
+								<button type="submit" class="btn btn-primary w-100 py-2">Se connecter</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

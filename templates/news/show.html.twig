@@ -1,29 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}News{% endblock %}
+{% block title %}Actualité : {{ news.title }}{% endblock %}
 
 {% block body %}
-    <h1>News</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ news.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ news.title }}</td>
-            </tr>
-            <tr>
-                <th>Content</th>
-                <td>{{ news.content }}</td>
-            </tr>
-            <tr>
-                <th>ImageFileName</th>
-                <td>{{ news.imageFileName }}</td>
-            </tr>
-        </tbody>
-    </table>
-    <a href="{{ path('app_news_index') }}">back to list</a>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+		<h1 class="h2">{{ news.title }}</h1>
+	</div>
+    <p>{{ news.content }}</p>
+    <a href="{{ path('app_news_index') }}" class="btn btn-outline-primary">{{ bootstrap_icon('arrow-left-circle') }} Actualités</a>
 {% endblock %}
