@@ -2,6 +2,10 @@
 
 {% block title %}PlannedSlot index{% endblock %}
 
+{% block javascripts %}
+    {{ encore_entry_script_tags('calendar') }}
+{% endblock %}
+
 {% block body %}
     <h1>PlannedSlot index</h1>
 
@@ -38,4 +42,9 @@
     </table>
 
     <a href="{{ path('app_planned_slot_new') }}">Create new</a>
+
+    <div
+        id="calendar-holder"
+        data-events-url="{{ path('fc_load_events') }}"
+    ></div>
 {% endblock %}
