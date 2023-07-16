@@ -6,6 +6,7 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 		<h1 class="h2">{{ news.title }}</h1>
 	</div>
+    <img src="{{ asset('uploads/files/' ~ news.imageFileName) }}" class="w-100 mb-3" alt="{{ news.title }}" title="{{ news.title }}">
     <p>{{ news.content }}</p>
     <a href="{{ path('app_news_index') }}" class="btn btn-outline-primary">{{ bootstrap_icon('arrow-left-circle') }} Actualités</a>
 {% endblock %}

@@ -9,12 +9,12 @@
 	{% for news in news %}
 		<div class="col-sm-4">
 			<div class="card">
-				<div class="card-header">
-					{{ news.title }}
-				</div>
+				<img src="{{ asset('uploads/files/' ~ news.imageFileName) }}" class="card-img-top" alt="{{ news.title }}" title="{{ news.title }}">
 				<div class="card-body">
+					<h5 class="card-title">{{ news.title }}</h5>
 					<p class="card-text">{{ news.content|slice(0, 150) ~ (news.content|length > 150 ? '...' : '') }}</p>
-					<a href="{{ path('app_news_show', {'id': news.id}) }}" class="btn btn-outline-primary">Lire {{ bootstrap_icon('eye') }}</a>
+					<a href="{{ path('app_news_show', {'id': news.id}) }}" class="btn btn-outline-primary">Lire
+						{{ bootstrap_icon('eye') }}</a>
 				</div>
 			</div>
 		</div>
