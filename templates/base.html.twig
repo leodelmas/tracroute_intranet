@@ -1,20 +1,151 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Welcome!{% endblock %}
+		</title>
+		<link
+		rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+		{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('app') }}
+		{% endblock %}
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-        <link rel="manifest" href="/manifest.json">
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+		{% endblock %}
+		<link rel="manifest" href="/manifest.json">
+	</head>
+	<body>
+		<header class="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow" data-bs-theme="dark">
+			<a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" href="#">Trac'Route</a>
+
+			<ul class="navbar-nav flex-row d-md-none">
+				<li class="nav-item text-nowrap">
+					<button class="nav-link px-3 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSearch" aria-controls="navbarSearch" aria-expanded="false" aria-label="Toggle search">
+						<svg class="bi">
+							<use xlink:href="#search"></use>
+						</svg>
+					</button>
+				</li>
+				<li class="nav-item text-nowrap">
+					<button class="nav-link px-3 text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+						<svg class="bi">
+							<use xlink:href="#list"></use>
+						</svg>
+					</button>
+				</li>
+			</ul>
+
+			<div id="navbarSearch" class="navbar-search w-100 collapse">
+				<input class="form-control w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search">
+			</div>
+		</header>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
+					<div class="offcanvas-lg offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
+						<div class="offcanvas-header">
+							<h5 class="offcanvas-title" id="sidebarMenuLabel">Company name</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
+						</div>
+						<div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
+							<ul class="nav flex-column">
+								<li class="nav-item">
+									<a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="#">
+                                        {{ bootstrap_icon('house-fill') }}
+										Tableau de bord
+									</a>
+								</li>
+                                <li class="nav-item">
+									<a class="nav-link d-flex align-items-center gap-2" href="#">
+                                        {{ bootstrap_icon('calendar-week') }}
+										Planning
+									</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link d-flex align-items-center gap-2" href="{{ path('app_news_index') }}">
+                                        {{ bootstrap_icon('newspaper') }}
+										Actualités
+									</a>
+								</li>
+                                <li class="nav-item">
+									<a class="nav-link d-flex align-items-center gap-2" href="{{ path('app_holidays_period_index') }}">
+                                        {{ bootstrap_icon('tsunami') }}
+										Congés
+									</a>
+								</li>
+                                <li class="nav-item">
+									<a class="nav-link d-flex align-items-center gap-2" href="{{ path('app_service_note_index') }}">
+                                        {{ bootstrap_icon('file-text') }}
+										Notes de service
+									</a>
+								</li>
+							</ul>
+
+							<hr class="my-3">
+                            <ul class="nav flex-column mb-auto">
+                                <li class="nav-item">
+									<a class="nav-link d-flex align-items-center gap-2" href="{{ path('app_admin_user_index') }}">
+                                        {{ bootstrap_icon('people') }}
+										Utilisateurs
+									</a>
+								</li>
+                                <li class="nav-item">
+									<a class="nav-link d-flex align-items-center gap-2" href="#">
+                                        {{ bootstrap_icon('calendar-week') }}
+										Plannings
+									</a>
+								</li>
+                                <li class="nav-item">
+									<a class="nav-link d-flex align-items-center gap-2" href="{{ path('app_admin_news_index') }}">
+                                        {{ bootstrap_icon('newspaper') }}
+										Actualités
+									</a>
+								</li>
+                                <li class="nav-item">
+									<a class="nav-link d-flex align-items-center gap-2" href="{{ path('app_admin_holidays_period_index') }}">
+                                        {{ bootstrap_icon('tsunami') }}
+										Congés
+									</a>
+								</li>
+                                <li class="nav-item">
+									<a class="nav-link d-flex align-items-center gap-2" href="{{ path('app_admin_service_note_index') }}">
+                                        {{ bootstrap_icon('file-text') }}
+										Notes de service
+									</a>
+								</li>
+                                <li class="nav-item">
+									<a class="nav-link d-flex align-items-center gap-2" href="#">
+                                        {{ bootstrap_icon('file-ruled') }}
+										Factures
+									</a>
+								</li>
+                            </ul>
+                            <hr class="my-3">
+
+							<ul class="nav flex-column mb-auto">
+								<li class="nav-item">
+									<a class="nav-link d-flex align-items-center gap-2" href="#">
+                                        {{ bootstrap_icon('gear-wide-connected') }}
+										Settings
+									</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link d-flex align-items-center gap-2" href="#">
+                                        {{ bootstrap_icon('door-closed') }}
+										Déconnexion
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                    {% block body %}{% endblock %}
+				</main>
+			</div>
+		</div>
+	</body>
 </html>

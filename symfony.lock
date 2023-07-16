@@ -180,5 +180,8 @@
             "package.json",
             "webpack.config.js"
         ]
+    },
+    "whatwedo/twig-bootstrap-icons": {
+        "version": "v1.1.1"
     }
 }

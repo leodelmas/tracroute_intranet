@@ -3,23 +3,9 @@
 {% block title %}ServiceNote{% endblock %}
 
 {% block body %}
-    <h1>ServiceNote</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ service_note.id }}</td>
-            </tr>
-            <tr>
-                <th>Object</th>
-                <td>{{ service_note.object }}</td>
-            </tr>
-            <tr>
-                <th>Content</th>
-                <td>{{ service_note.content }}</td>
-            </tr>
-        </tbody>
-    </table>
-    <a href="{{ path('app_service_note_index') }}">back to list</a>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+		<h1 class="h2">{{ service_note.object }}</h1>
+	</div>
+    <p>{{ service_note.content }}</p>
+    <a href="{{ path('app_service_note_index') }}" class="btn btn-outline-primary">{{ bootstrap_icon('arrow-left-circle') }} Notes de service</a>
 {% endblock %}

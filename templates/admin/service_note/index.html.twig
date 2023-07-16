@@ -1,17 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}ServiceNote index{% endblock %}
+{% block title %}Notes de service{% endblock %}
 
 {% block body %}
-    <h1>ServiceNote index</h1>
-
-    <table class="table">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+		<h1 class="h2">Notes de service</h1>
+		<div class="btn-toolbar mb-2 mb-md-0">
+            <a href="{{ path('app_admin_service_note_new') }}" class="btn btn-outline-primary align-items-center gap-1">
+                Ajouter
+                {{ bootstrap_icon('plus-circle') }}
+            </a>
+		</div>
+	</div>
+    <table class="table table-striped table-sm">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Object</th>
-                <th>Content</th>
-                <th>actions</th>
+                <th>#</th>
+                <th>Objet</th>
+                <th>Contenu</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -19,19 +26,17 @@
             <tr>
                 <td>{{ service_note.id }}</td>
                 <td>{{ service_note.object }}</td>
-                <td>{{ service_note.content }}</td>
+                <td>{{ service_note.content|slice(0, 50) ~ (service_note.content|length > 50 ? '...' : '') }}</td>
                 <td>
-                    <a href="{{ path('app_service_note_show', {'id': service_note.id}) }}">show</a>
-                    <a href="{{ path('app_admin_service_note_edit', {'id': service_note.id}) }}">edit</a>
+                    <a href="{{ path('app_service_note_show', {'id': service_note.id}) }}">{{ bootstrap_icon('eye') }}</a>
+                    <a href="{{ path('app_admin_service_note_edit', {'id': service_note.id}) }}">{{ bootstrap_icon('pencil-square') }}</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="4">Aucun élément.</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_admin_service_note_new') }}">Create new</a>
 {% endblock %}

@@ -1,36 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}News index{% endblock %}
+{% block title %}Actualités{% endblock %}
 
 {% block body %}
-    <h1>News index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Content</th>
-                <th>ImageFileName</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for news in news %}
-            <tr>
-                <td>{{ news.id }}</td>
-                <td>{{ news.title }}</td>
-                <td>{{ news.content }}</td>
-                <td>{{ news.imageFileName }}</td>
-                <td>
-                    <a href="{{ path('app_news_show', {'id': news.id}) }}">show</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+	<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+		<h1 class="h2">Actualités</h1>
+	</div>
+	{% for news in news %}
+		<div class="col-sm-4">
+			<div class="card">
+				<div class="card-header">
+					{{ news.title }}
+				</div>
+				<div class="card-body">
+					<p class="card-text">{{ news.content }}</p>
+					<a href="{{ path('app_news_show', {'id': news.id}) }}">{{ bootstrap_icon('eye') }}</a>
+				</div>
+			</div>
+		</div>
+	{% else %}
+		<tr>
+			<td colspan="5">no records found</td>
+		</tr>
+	{% endfor %}
 {% endblock %}

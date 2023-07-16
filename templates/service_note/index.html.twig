@@ -1,34 +1,32 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}ServiceNote index{% endblock %}
+{% block title %}Notes de service{% endblock %}
 
 {% block body %}
-    <h1>ServiceNote index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Object</th>
-                <th>Content</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for service_note in service_notes %}
-            <tr>
-                <td>{{ service_note.id }}</td>
-                <td>{{ service_note.object }}</td>
-                <td>{{ service_note.content }}</td>
-                <td>
-                    <a href="{{ path('app_service_note_show', {'id': service_note.id}) }}">show</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+	<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+		<h1 class="h2">Notes de service</h1>
+	</div>
+	<div class="row">
+		{% for service_note in service_notes %}
+			<div class="col-sm-4">
+				<div class="card">
+					<div class="card-header">
+						{{ service_note.object }}
+					</div>
+					<div class="card-body">
+						<p class="card-text">{{ service_note.content|slice(0, 150) ~ (service_note.content|length > 150 ? '...' : '') }}</p>
+						<a href="{{ path('app_service_note_show', {'id': service_note.id}) }}" class="btn btn-outline-primary">Lire {{ bootstrap_icon('eye') }}</a>
+					</div>
+				</div>
+			</div>
+		{% else %}
+			<div class="col-sm-4">
+				<div class="card">
+					<div class="card-body">
+						<p class="card-text">Aucun élément.</p>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
 {% endblock %}

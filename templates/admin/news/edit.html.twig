@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit News{% endblock %}
+{% block title %}Éditer l'actualité{% endblock %}
 
 {% block body %}
-    <h1>Edit News</h1>
-
-    {{ include('admin/news/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_admin_news_index') }}">back to list</a>
-
-    {{ include('admin/news/_delete_form.html.twig') }}
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+		<h1 class="h2">Éditer l'actualité</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            {{ include('admin/news/_delete_form.html.twig') }}
+		</div>
+	</div>
+    {{ include('admin/news/_form.html.twig') }}
 {% endblock %}
