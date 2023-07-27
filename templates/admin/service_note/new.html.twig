@@ -1,11 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New ServiceNote{% endblock %}
+{% block title %}Nouvelle note de service{% endblock %}
 
 {% block body %}
-    <h1>Create new ServiceNote</h1>
-
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+		<h1 class="h2">Nouvelle note de service</h1>
+	</div>
     {{ include('admin/service_note/_form.html.twig') }}
-
-    <a href="{{ path('app_admin_service_note_index') }}">back to list</a>
 {% endblock %}
