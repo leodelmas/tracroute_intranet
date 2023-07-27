@@ -39,28 +39,11 @@ class ServiceNoteRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return ServiceNote[] Returns an array of ServiceNote objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('s.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?ServiceNote
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function findLatestServiceNote(): ServiceNote
+    {
+        return $this->createQueryBuilder('sn')
+            ->orderBy('sn.id', 'DESC')
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }
