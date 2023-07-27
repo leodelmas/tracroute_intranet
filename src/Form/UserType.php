@@ -15,10 +15,14 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email', EmailType::class)
-            ->add('password', PasswordType::class)
+            ->add('email', EmailType::class, [
+                'label' => 'E-mail'
+            ])
+            ->add('password', PasswordType::class, [
+                'label' => 'Mot de passe'
+            ])
             ->add('isAdmin', CheckboxType::class, [
-                'label' => 'Admin',
+                'label' => 'Administrateur',
                 'mapped' => false,
                 'required' => false
             ])

@@ -1,4 +1,11 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    <div class="row">
+        <div class="col-sm-6">{{ form_row(form.email) }}</div>
+        <div class="col-sm-6">{{ form_row(form.password) }}</div>
+        <div class="col-12">{{ form_row(form.isAdmin) }}</div>
+    </div>
+    <div class="d-flex justify-content-between">
+        <a href="{{ path('app_admin_user_index') }}" class="btn btn-outline-secondary">{{ bootstrap_icon('arrow-left-circle') }} Utilisateurs</a>
+        <button class="btn btn-outline-primary">Enregistrer</button>
+    </div>
 {{ form_end(form) }}
