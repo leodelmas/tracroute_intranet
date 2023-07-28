@@ -12,6 +12,17 @@
 				<img src="{{ asset('uploads/files/' ~ news.imageFileName) }}" class="card-img-top" alt="{{ news.title }}" title="{{ news.title }}">
 				<div class="card-body">
 					<h5 class="card-title">{{ news.title }}</h5>
+					{% if news.start or news.end %}
+						<h6 class="card-subtitle mb-2 text-secondary">
+							{% if news.start and news.end %}
+								{{ news.start|date('d/m/Y') }} - {{ news.end|date('d/m/Y') }}
+							{% elseif news.start %}
+								À partir du {{ news.start|date('d/m/Y') }}
+							{% elseif news.end %}
+								Jusqu'au {{ news.end|date('d/m/Y') }}
+							{% endif %}	
+						</h6>
+					{% endif %}
 					<p class="card-text">{{ news.content|slice(0, 150) ~ (news.content|length > 150 ? '...' : '') }}</p>
 					<a href="{{ path('app_news_show', {'id': news.id}) }}" class="btn btn-outline-primary">Lire
 						{{ bootstrap_icon('eye') }}</a>

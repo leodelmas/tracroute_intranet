@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\News;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -36,6 +37,16 @@ class NewsType extends AbstractType
                         'mimeTypesMessage' => 'Please upload a valid image',
                     ])
                 ],
+            ])
+            ->add('start', DateType::class, [
+                'label' => 'Début',
+                'widget' => 'single_text',
+                'required' => false
+            ])
+            ->add('end', DateType::class, [
+                'label' => 'Fin',
+                'widget' => 'single_text',
+                'required' => false
             ])
         ;
     }
