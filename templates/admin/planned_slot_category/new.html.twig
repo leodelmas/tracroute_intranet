@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nouveau planning{% endblock %}
+{% block title %}Nouvelle catégorie planning{% endblock %}
 
 {% block body %}
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-		<h1 class="h2">Nouveau planning</h1>
+		<h1 class="h2">Nouvelle catégorie planning</h1>
 	</div>
-    {{ include('planned_slot/_form.html.twig') }}
+    {{ include('admin/planned_slot_category/_form.html.twig') }}
 {% endblock %}

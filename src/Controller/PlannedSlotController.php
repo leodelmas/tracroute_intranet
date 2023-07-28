@@ -4,31 +4,35 @@ namespace App\Controller;
 
 use App\Entity\PlannedSlot;
 use App\Form\PlannedSlotType;
+use App\Repository\PlannedSlotCategoryRepository;
 use App\Repository\PlannedSlotRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 #[Route('/planned_slot')]
 class PlannedSlotController extends AbstractController
 {
     #[Route('/', name: 'app_planned_slot_index', methods: ['GET'])]
-    public function index(PlannedSlotRepository $plannedSlotRepository): Response
+    public function index(PlannedSlotRepository $plannedSlotRepository, PlannedSlotCategoryRepository $plannedSlotCategoryRepository): Response
     {
         return $this->render('planned_slot/index.html.twig', [
             'planned_slots' => $plannedSlotRepository->findAll(),
+            'planned_slots_categories' => $plannedSlotCategoryRepository->findAll()
         ]);
     }
 
     #[Route('/new', name: 'app_planned_slot_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, PlannedSlotRepository $plannedSlotRepository): Response
+    public function new(Request $request, Security $security, PlannedSlotRepository $plannedSlotRepository): Response
     {
         $plannedSlot = new PlannedSlot();
         $form = $this->createForm(PlannedSlotType::class, $plannedSlot);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $plannedSlot->setUser($security->getUser());
             $plannedSlotRepository->save($plannedSlot, true);
 
             return $this->redirectToRoute('app_planned_slot_index', [], Response::HTTP_SEE_OTHER);
@@ -37,14 +41,6 @@ class PlannedSlotController extends AbstractController
         return $this->renderForm('planned_slot/new.html.twig', [
             'planned_slot' => $plannedSlot,
             'form' => $form,
-        ]);
-    }
-
-    #[Route('/{id}', name: 'app_planned_slot_show', methods: ['GET'])]
-    public function show(PlannedSlot $plannedSlot): Response
-    {
-        return $this->render('planned_slot/show.html.twig', [
-            'planned_slot' => $plannedSlot,
         ]);
     }
 

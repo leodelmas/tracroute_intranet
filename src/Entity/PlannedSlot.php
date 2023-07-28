@@ -30,6 +30,10 @@ class PlannedSlot
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
+    #[ORM\ManyToOne(inversedBy: 'plannedSlots')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?PlannedSlotCategory $plannedSlotCategory = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -91,6 +95,18 @@ class PlannedSlot
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getPlannedSlotCategory(): ?PlannedSlotCategory
+    {
+        return $this->plannedSlotCategory;
+    }
+
+    public function setPlannedSlotCategory(?PlannedSlotCategory $plannedSlotCategory): self
+    {
+        $this->plannedSlotCategory = $plannedSlotCategory;
 
         return $this;
     }

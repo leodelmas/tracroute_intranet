@@ -1,50 +1,29 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}PlannedSlot index{% endblock %}
+{% block title %}Planning{% endblock %}
 
 {% block javascripts %}
     {{ encore_entry_script_tags('calendar') }}
 {% endblock %}
 
 {% block body %}
-    <h1>PlannedSlot index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Start</th>
-                <th>End</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for planned_slot in planned_slots %}
-            <tr>
-                <td>{{ planned_slot.id }}</td>
-                <td>{{ planned_slot.start ? planned_slot.start|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ planned_slot.end ? planned_slot.end|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ planned_slot.name }}</td>
-                <td>{{ planned_slot.description }}</td>
-                <td>
-                    <a href="{{ path('app_planned_slot_show', {'id': planned_slot.id}) }}">show</a>
-                    <a href="{{ path('app_planned_slot_edit', {'id': planned_slot.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_planned_slot_new') }}">Create new</a>
-
-    <div
-        id="calendar-holder"
-        data-events-url="{{ path('fc_load_events') }}"
-    ></div>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+		<h1 class="h2">Planning</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <a href="{{ path('app_planned_slot_new') }}" class="btn btn-outline-primary align-items-center gap-1">
+                Ajouter
+                {{ bootstrap_icon('plus-circle') }}
+            </a>
+		</div>
+	</div>
+    <div class="row">
+        <div class="col-sm-8">
+            <div id="calendar-holder" data-events-url="{{ path('fc_load_events') }}"></div>
+        </div>
+        <div class="col-sm-4">
+            {% for planned_slots_category in planned_slots_categories %}
+                <p class="planning-caption-item"><div class="item-badge" style="background-color: {{ planned_slots_category.color }};"></div>{{ planned_slots_category.name }}</p>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

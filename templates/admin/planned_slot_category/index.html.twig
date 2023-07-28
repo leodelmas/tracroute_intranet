@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Catégories planning{% endblock %}
+
+{% block body %}
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+		<h1 class="h2">Catégories planning</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <a href="{{ path('app_admin_planned_slot_category_new') }}" class="btn btn-outline-primary align-items-center gap-1">
+                Ajouter
+                {{ bootstrap_icon('plus-circle') }}
+            </a>
+		</div>
+	</div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nom</th>
+                <th>Couleur</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for planned_slot_category in planned_slot_categories %}
+            <tr>
+                <td>{{ planned_slot_category.id }}</td>
+                <td>{{ planned_slot_category.name }}</td>
+                <td>
+                    <div class="item-badge" style="background-color: {{ planned_slot_category.color }};"></div>
+                </td>
+                <td>
+                    <a href="{{ path('app_admin_planned_slot_category_edit', {'id': planned_slot_category.id}) }}">{{ bootstrap_icon('pencil-square') }}</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">Aucun élément.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

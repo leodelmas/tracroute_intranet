@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit PlannedSlot{% endblock %}
+{% block title %}Éditer le planning{% endblock %}
 
 {% block body %}
-    <h1>Edit PlannedSlot</h1>
-
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+		<h1 class="h2">Éditer le planning</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            {{ include('planned_slot/_delete_form.html.twig') }}
+		</div>
+	</div>
     {{ include('planned_slot/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_planned_slot_index') }}">back to list</a>
-
-    {{ include('planned_slot/_delete_form.html.twig') }}
 {% endblock %}

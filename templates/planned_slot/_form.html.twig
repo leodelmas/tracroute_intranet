@@ -1,4 +1,13 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    <div class="row">
+        <div class="col-sm-6">{{ form_row(form.start) }}</div>
+        <div class="col-sm-6">{{ form_row(form.end) }}</div>
+        <div class="col-sm-6">{{ form_row(form.name) }}</div>
+        <div class="col-sm-6">{{ form_row(form.plannedSlotCategory) }}</div>
+        <div class="col-12">{{ form_row(form.description) }}</div>
+    </div>
+    <div class="d-flex justify-content-between">
+        <a href="{{ path('app_planned_slot_index') }}" class="btn btn-outline-secondary">{{ bootstrap_icon('arrow-left-circle') }} Planning</a>
+        <button class="btn btn-outline-primary">Enregistrer</button>
+    </div>
 {{ form_end(form) }}

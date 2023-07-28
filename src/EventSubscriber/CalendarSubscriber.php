@@ -2,13 +2,22 @@
 
 namespace App\EventSubscriber;
 
+use App\Repository\PlannedSlotRepository;
 use CalendarBundle\CalendarEvents;
 use CalendarBundle\Entity\Event;
 use CalendarBundle\Event\CalendarEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Security;
 
 class CalendarSubscriber implements EventSubscriberInterface
 {
+    public function __construct(
+        private PlannedSlotRepository $plannedSlotRepository,
+        private Security $security,
+        private UrlGeneratorInterface $router
+    ) { }
+
     public static function getSubscribedEvents()
     {
         return [
@@ -18,22 +27,27 @@ class CalendarSubscriber implements EventSubscriberInterface
 
     public function onCalendarSetData(CalendarEvent $calendar)
     {
-        $start = $calendar->getStart();
-        $end = $calendar->getEnd();
-        $filters = $calendar->getFilters();
+        $user = $this->security->getUser();
+        $plannedSlots = $this->plannedSlotRepository->findBy(['user' => $user]);
 
-        // You may want to make a custom query from your database to fill the calendar
+        foreach ($plannedSlots as $plannedSlot) {
+            $calendarEvent = new Event(
+                strlen($plannedSlot->getName()) > 20 ? substr($plannedSlot->getName(), 0, 20) . '...' : $plannedSlot->getName(),
+                $plannedSlot->getStart(),
+                $plannedSlot->getEnd()
+            );
 
-        $calendar->addEvent(new Event(
-            'Event 1',
-            new \DateTime('Tuesday this week'),
-            new \DateTime('Wednesdays this week')
-        ));
+            $calendarEvent->setOptions([
+                'color' => $plannedSlot->getPlannedSlotCategory()->getColor(),
+            ]);
 
-        // If the end date is null or not defined, it creates a all day event
-        $calendar->addEvent(new Event(
-            'All day event',
-            new \DateTime('Friday this week')
-        ));
+            $calendarEvent->addOption(
+                'url', $this->router->generate('app_planned_slot_edit', [
+                    'id' => $plannedSlot->getId()
+                ])
+            );
+
+            $calendar->addEvent($calendarEvent);
+        }
     }
 }
