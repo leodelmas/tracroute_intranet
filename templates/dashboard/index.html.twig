@@ -21,8 +21,11 @@
 					<div class="card-body">
 						<h5 class="card-title">{{ news.title }}</h5>
 						<p class="card-text">{{ news.content|slice(0, 150) ~ (news.content|length > 150 ? '...' : '') }}</p>
-						<a href="{{ path('app_news_show', {'id': news.id}) }}" class="btn btn-outline-primary">Lire
-							{{ bootstrap_icon('eye') }}</a>
+						<p class="card-text text-secondary small">{{ news.likes|length }} j'aime</p>
+						<div class="btn-toolbar gap-1">
+							{{ include('news/_like_form.html.twig') }}
+							<a href="{{ path('app_news_show', {'id': news.id}) }}" class="btn btn-outline-primary">Lire {{ bootstrap_icon('eye') }}</a>
+						</div>
 					</div>
 				</div>
 			{% else %}
@@ -42,8 +45,13 @@
 					</div>
 					<div class="card-body">
 						<p class="card-text">{{ service_note.content|slice(0, 150) ~ (service_note.content|length > 150 ? '...' : '') }}</p>
-						<a href="{{ path('app_service_note_show', {'id': service_note.id}) }}" class="btn btn-outline-primary">Lire
-							{{ bootstrap_icon('eye') }}</a>
+						{% if app.user and service_note.isValidatedByUser(app.user) %}
+							<p class="text-secondary small">Vous avez validé la réception de cette note.</p>
+						{% endif %}
+						<div class="btn-toolbar gap-1">
+							{{ include('service_note/_validate_form.html.twig') }}
+							<a href="{{ path('app_service_note_show', {'id': service_note.id}) }}" class="btn btn-outline-primary">Lire {{ bootstrap_icon('eye') }}</a>
+						</div>
 					</div>
 				</div>
 			{% else %}
