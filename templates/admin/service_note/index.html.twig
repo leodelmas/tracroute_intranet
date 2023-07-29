@@ -18,6 +18,7 @@
                 <th>#</th>
                 <th>Objet</th>
                 <th>Contenu</th>
+                <th>Réceptions</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -27,6 +28,7 @@
                 <td>{{ service_note.id }}</td>
                 <td>{{ service_note.object }}</td>
                 <td>{{ service_note.content|slice(0, 50) ~ (service_note.content|length > 50 ? '...' : '') }}</td>
+                <td>{{ service_note.receptions|length }}</td>
                 <td>
                     <a href="{{ path('app_service_note_show', {'id': service_note.id}) }}">{{ bootstrap_icon('eye') }}</a>
                     <a href="{{ path('app_admin_service_note_edit', {'id': service_note.id}) }}">{{ bootstrap_icon('pencil-square') }}</a>
@@ -34,7 +36,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">Aucun élément.</td>
+                <td colspan="5">Aucun élément.</td>
             </tr>
         {% endfor %}
         </tbody>

@@ -18,6 +18,7 @@
                 <th>#</th>
                 <th>Titre</th>
                 <th>Contenu</th>
+                <th>J'aime</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -27,6 +28,7 @@
                 <td>{{ news.id }}</td>
                 <td>{{ news.title }}</td>
                 <td>{{ news.content|slice(0, 150) ~ (news.content|length > 150 ? '...' : '') }}</td>
+                <td>{{ news.likes|length }}</td>
                 <td>
                     <a href="{{ path('app_news_show', {'id': news.id}) }}">{{ bootstrap_icon('eye') }}</a>
                     <a href="{{ path('app_admin_news_edit', {'id': news.id}) }}">{{ bootstrap_icon('pencil-square') }}</a>
