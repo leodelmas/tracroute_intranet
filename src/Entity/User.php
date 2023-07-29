@@ -39,11 +39,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Like::class, orphanRemoval: true)]
     private Collection $likes;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Reception::class, orphanRemoval: true)]
+    private Collection $receptions;
+
     public function __construct()
     {
         $this->holidaysPeriods = new ArrayCollection();
         $this->plannedSlots = new ArrayCollection();
         $this->likes = new ArrayCollection();
+        $this->receptions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -200,6 +204,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($like->getUser() === $this) {
                 $like->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Reception>
+     */
+    public function getReceptions(): Collection
+    {
+        return $this->receptions;
+    }
+
+    public function addReception(Reception $reception): self
+    {
+        if (!$this->receptions->contains($reception)) {
+            $this->receptions->add($reception);
+            $reception->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReception(Reception $reception): self
+    {
+        if ($this->receptions->removeElement($reception)) {
+            // set the owning side to null (unless already changed)
+            if ($reception->getUser() === $this) {
+                $reception->setUser(null);
             }
         }
 

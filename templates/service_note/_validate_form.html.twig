@@ -1,0 +1,5 @@
+{% if app.user and not service_note.isValidatedByUser(app.user) %}
+	<form method="post" action="{{ path('app_service_note_validate', {'id': service_note.id}) }}">
+		<button class="btn btn-outline-success">Valider {{ bootstrap_icon('check') }}</button>
+	</form>
+{% endif %}

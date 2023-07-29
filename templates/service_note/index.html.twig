@@ -15,7 +15,13 @@
 					</div>
 					<div class="card-body">
 						<p class="card-text">{{ service_note.content|slice(0, 150) ~ (service_note.content|length > 150 ? '...' : '') }}</p>
-						<a href="{{ path('app_service_note_show', {'id': service_note.id}) }}" class="btn btn-outline-primary">Lire {{ bootstrap_icon('eye') }}</a>
+						<div class="btn-toolbar gap-1">
+							{{ include('service_note/_validate_form.html.twig') }}
+							{% if app.user and service_note.isValidatedByUser(app.user) %}
+							<p class="text-secondary small">Vous avez validé la récéption de cette note.</p>
+							{% endif %}
+							<a href="{{ path('app_service_note_show', {'id': service_note.id}) }}" class="btn btn-outline-primary">Lire {{ bootstrap_icon('eye') }}</a>
+						</div>
 					</div>
 				</div>
 			</div>

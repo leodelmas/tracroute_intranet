@@ -2,11 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Reception;
 use App\Entity\ServiceNote;
+use App\Repository\ReceptionRepository;
 use App\Repository\ServiceNoteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 #[Route('/service_note')]
 class ServiceNoteController extends AbstractController
@@ -25,5 +28,16 @@ class ServiceNoteController extends AbstractController
         return $this->render('service_note/show.html.twig', [
             'service_note' => $serviceNote,
         ]);
+    }
+
+    #[Route('/validate/{id}', name: 'app_service_note_validate', methods: ['POST'])]
+    public function validate(ServiceNote $serviceNote, Security $security, ReceptionRepository $receptionRepository): Response
+    {
+        $reception = new Reception();
+        $reception
+            ->setServiceNote($serviceNote)
+            ->setUser($security->getUser());
+        $receptionRepository->save($reception, true);
+        return $this->redirectToRoute('app_service_note_index');
     }
 }
