@@ -24,8 +24,11 @@
 						</h6>
 					{% endif %}
 					<p class="card-text">{{ news.content|slice(0, 150) ~ (news.content|length > 150 ? '...' : '') }}</p>
-					<a href="{{ path('app_news_show', {'id': news.id}) }}" class="btn btn-outline-primary">Lire
-						{{ bootstrap_icon('eye') }}</a>
+					<p class="card-text text-secondary small">{{ news.likes|length }} j'aime</p>
+					<div class="btn-toolbar gap-1">
+						{{ include('news/_like_form.html.twig') }}
+						<a href="{{ path('app_news_show', {'id': news.id}) }}" class="btn btn-outline-primary">Lire {{ bootstrap_icon('eye') }}</a>
+					</div>
 				</div>
 			</div>
 		</div>

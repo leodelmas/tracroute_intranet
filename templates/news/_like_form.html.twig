@@ -1,0 +1,5 @@
+{% if app.user and not news.isLikedByUser(app.user) %}
+	<form method="post" action="{{ path('app_news_like', {'id': news.id}) }}">
+		<button class="btn btn-outline-success">J'aime {{ bootstrap_icon('heart') }}</button>
+	</form>
+{% endif %}

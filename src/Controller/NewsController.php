@@ -2,13 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Like;
 use App\Entity\News;
-use App\Form\NewsType;
+use App\Repository\LikeRepository;
 use App\Repository\NewsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 #[Route('/news')]
 class NewsController extends AbstractController
@@ -27,5 +28,16 @@ class NewsController extends AbstractController
         return $this->render('news/show.html.twig', [
             'news' => $news,
         ]);
+    }
+
+    #[Route('/like/{id}', name: 'app_news_like', methods: ['POST'])]
+    public function like(News $news, Security $security, LikeRepository $likeRepository): Response
+    {
+        $like = new Like();
+        $like
+            ->setNews($news)
+            ->setUser($security->getUser());
+        $likeRepository->save($like, true);
+        return $this->redirectToRoute('app_news_index');
     }
 }
