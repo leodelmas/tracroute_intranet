@@ -17,6 +17,7 @@
             <tr>
                 <th>#</th>
                 <th>Référence</th>
+                <th>Total</th>
                 <th>Date</th>
                 <th>Actions</th>
             </tr>
@@ -26,6 +27,7 @@
             <tr>
                 <td>{{ invoice.id }}</td>
                 <td>{{ invoice.reference }}</td>
+                <td>{{ invoice.total }}€</td>
                 <td>{{ invoice.date|date('d/m/Y') }}</td>
                 <td>
                     <a href="{{ path('app_invoice_show', {'id': invoice.id}) }}">{{ bootstrap_icon('eye') }}</a>

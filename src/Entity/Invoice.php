@@ -88,4 +88,14 @@ class Invoice
 
         return $this;
     }
+
+    public function getTotal(): float
+    {
+        $totalAmount = 0;
+        /** @var InvoiceLine $invoiceLine */
+        foreach ($this->getInvoiceLines() as $invoiceLine) {
+            $totalAmount += $invoiceLine->getPrice() * $invoiceLine->getQuantity();
+        }
+        return $totalAmount;
+    }
 }
