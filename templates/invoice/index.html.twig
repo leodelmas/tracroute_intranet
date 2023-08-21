@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Factures{% endblock %}
+
+{% block body %}
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+		<h1 class="h2">Factures</h1>
+		<div class="btn-toolbar mb-2 mb-md-0">
+            <a href="{{ path('app_invoice_new') }}" class="btn btn-outline-primary align-items-center gap-1">
+                Ajouter
+                {{ bootstrap_icon('plus-circle') }}
+            </a>
+		</div>
+	</div>
+    <table class="table table-striped table-sm">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Référence</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for invoice in invoices %}
+            <tr>
+                <td>{{ invoice.id }}</td>
+                <td>{{ invoice.reference }}</td>
+                <td>{{ invoice.date|date('d/m/Y') }}</td>
+                <td>
+                    <a href="{{ path('app_invoice_show', {'id': invoice.id}) }}">{{ bootstrap_icon('eye') }}</a>
+                    <a href="{{ path('app_invoice_edit', {'id': invoice.id}) }}">{{ bootstrap_icon('pencil-square') }}</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">Aucun élément.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

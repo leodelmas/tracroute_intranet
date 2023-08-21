@@ -35,7 +35,6 @@
 					</button>
 				</li>
 			</ul>
-
 			<div id="navbarSearch" class="navbar-search w-100 collapse">
 				<input class="form-control w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search">
 			</div>
@@ -80,8 +79,13 @@
 										Notes de service
 									</a>
 								</li>
+								<li class="nav-item">
+									<a class="nav-link d-flex align-items-center gap-2" href="{{ path('app_invoice_index') }}">
+                                        {{ bootstrap_icon('file-ruled') }}
+										Factures
+									</a>
+								</li>
 							</ul>
-
 							<hr class="my-3">
 							<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mb-1 text-body-secondary text-uppercase">
             					<span>Administration</span>
@@ -131,14 +135,7 @@
 								</li>
                             </ul>
                             <hr class="my-3">
-
 							<ul class="nav flex-column mb-auto">
-								<li class="nav-item">
-									<a class="nav-link d-flex align-items-center gap-2" href="#">
-                                        {{ bootstrap_icon('gear-wide-connected') }}
-										Settings
-									</a>
-								</li>
 								<li class="nav-item">
 									<a class="nav-link d-flex align-items-center gap-2" href="#">
                                         {{ bootstrap_icon('door-closed') }}
