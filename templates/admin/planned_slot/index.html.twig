@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Plannings{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('calendar') }}
+{% endblock %}
+
+{% block body %}
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+		<h1 class="h2">Plannings</h1>
+	</div>
+    <div class="row">
+        <div class="col-sm-8">
+            <div id="calendar-holder" data-events-url="{{ path('fc_load_events') }}"></div>
+        </div>
+        <div class="col-sm-4">
+            {% for planned_slots_category in planned_slots_categories %}
+                <p class="planning-caption-item"><div class="item-badge" style="background-color: {{ planned_slots_category.color }};"></div>{{ planned_slots_category.name }}</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
