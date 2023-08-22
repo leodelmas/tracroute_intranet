@@ -19,7 +19,7 @@ class PlannedSlotController extends AbstractController
     public function index(PlannedSlotRepository $plannedSlotRepository, PlannedSlotCategoryRepository $plannedSlotCategoryRepository): Response
     {
         return $this->render('planned_slot/index.html.twig', [
-            'planned_slots' => $plannedSlotRepository->findAll(),
+            'planned_slots' => $plannedSlotRepository->findBy(['user' => $this->getUser()]),
             'planned_slots_categories' => $plannedSlotCategoryRepository->findAll()
         ]);
     }
