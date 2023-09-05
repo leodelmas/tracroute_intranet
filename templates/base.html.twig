@@ -3,7 +3,8 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>
-			Trac'Route - {% block title %}{% endblock %}
+			Trac'Route -
+			{% block title %}{% endblock %}
 		</title>
 		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>🛞</text></svg>">
 		{% block stylesheets %}
@@ -16,134 +17,62 @@
 		<link rel="manifest" href="/manifest.json">
 	</head>
 	<body>
-		<header class="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow" data-bs-theme="dark">
-			<a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" href="#">Trac'Route</a>
-
-			<ul class="navbar-nav flex-row d-md-none">
-				<li class="nav-item text-nowrap">
-					<button class="nav-link px-3 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSearch" aria-controls="navbarSearch" aria-expanded="false" aria-label="Toggle search">
-						<svg class="bi">
-							<use xlink:href="#search"></use>
-						</svg>
-					</button>
-				</li>
-				<li class="nav-item text-nowrap">
-					<button class="nav-link px-3 text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-						<svg class="bi">
-							<use xlink:href="#list"></use>
-						</svg>
-					</button>
-				</li>
-			</ul>
-			<div id="navbarSearch" class="navbar-search w-100 collapse">
-				<input class="form-control w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search">
-			</div>
-		</header>
-		<div class="container-fluid">
-			<div class="row">
-				<div class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
-					<div class="offcanvas-lg offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
-						<div class="offcanvas-header">
-							<h5 class="offcanvas-title" id="sidebarMenuLabel">Company name</h5>
-							<button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
-						</div>
-						<div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
-							<ul class="nav flex-column">
-								<li class="nav-item">
-									<a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="{{ path('app_dashboard') }}">
-                                        {{ bootstrap_icon('house') }}
-										Tableau de bord
-									</a>
+		<nav class="navbar navbar-expand-lg bg-light">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="{{ path('app_dashboard') }}">Trac'Route 🛞</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item">
+							<a class="nav-link" href="{{ path('app_planned_slot_index') }}">Planning</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ path('app_holidays_period_index') }}">Congés</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ path('app_invoice_index') }}">Factures</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ path('app_news_index') }}">Actualités</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ path('app_service_note_index') }}">Notes de service</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								Administration
+							</a>
+							<ul class="dropdown-menu">
+								<li>
+									<a class="dropdown-item" href="{{ path('app_admin_user_index') }}">Utilisateurs</a>
 								</li>
-                                <li class="nav-item">
-									<a class="nav-link d-flex align-items-center gap-2" href="{{ path('app_planned_slot_index') }}">
-                                        {{ bootstrap_icon('calendar-week') }}
-										Planning
-									</a>
+								<li>
+									<a class="dropdown-item" href="{{ path('app_admin_planned_slot_index') }}">Plannings</a>
 								</li>
-								<li class="nav-item">
-									<a class="nav-link d-flex align-items-center gap-2" href="{{ path('app_news_index') }}">
-                                        {{ bootstrap_icon('newspaper') }}
-										Actualités
-									</a>
+								<li>
+									<a class="dropdown-item" href="{{ path('app_admin_news_index') }}">Actualités</a>
 								</li>
-                                <li class="nav-item">
-									<a class="nav-link d-flex align-items-center gap-2" href="{{ path('app_holidays_period_index') }}">
-                                        {{ bootstrap_icon('tsunami') }}
-										Congés
-									</a>
+								<li>
+									<a class="dropdown-item" href="{{ path('app_admin_holidays_period_index') }}">Congés</a>
 								</li>
-                                <li class="nav-item">
-									<a class="nav-link d-flex align-items-center gap-2" href="{{ path('app_service_note_index') }}">
-                                        {{ bootstrap_icon('file-text') }}
-										Notes de service
-									</a>
+								<li>
+									<a class="dropdown-item" href="{{ path('app_admin_service_note_index') }}">Notes de service</a>
 								</li>
-								<li class="nav-item">
-									<a class="nav-link d-flex align-items-center gap-2" href="{{ path('app_invoice_index') }}">
-                                        {{ bootstrap_icon('file-ruled') }}
-										Factures
-									</a>
+								<li>
+									<a class="dropdown-item" href="{{ path('app_admin_planned_slot_category_index') }}">Catégories planning</a>
 								</li>
 							</ul>
-							<hr class="my-3">
-							<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mb-1 text-body-secondary text-uppercase">
-            					<span>Administration</span>
-          					</h6>
-                            <ul class="nav flex-column mb-auto">
-                                <li class="nav-item">
-									<a class="nav-link d-flex align-items-center gap-2" href="{{ path('app_admin_user_index') }}">
-                                        {{ bootstrap_icon('people') }}
-										Utilisateurs
-									</a>
-								</li>
-                                <li class="nav-item">
-									<a class="nav-link d-flex align-items-center gap-2" href="{{ path('app_admin_planned_slot_index') }}">
-                                        {{ bootstrap_icon('calendar-week') }}
-										Plannings
-									</a>
-								</li>
-                                <li class="nav-item">
-									<a class="nav-link d-flex align-items-center gap-2" href="{{ path('app_admin_news_index') }}">
-                                        {{ bootstrap_icon('newspaper') }}
-										Actualités
-									</a>
-								</li>
-                                <li class="nav-item">
-									<a class="nav-link d-flex align-items-center gap-2" href="{{ path('app_admin_holidays_period_index') }}">
-                                        {{ bootstrap_icon('tsunami') }}
-										Congés
-									</a>
-								</li>
-                                <li class="nav-item">
-									<a class="nav-link d-flex align-items-center gap-2" href="{{ path('app_admin_service_note_index') }}">
-                                        {{ bootstrap_icon('file-text') }}
-										Notes de service
-									</a>
-								</li>
-								<li class="nav-item">
-									<a class="nav-link d-flex align-items-center gap-2" href="{{ path('app_admin_planned_slot_category_index') }}">
-                                        {{ bootstrap_icon('bookmark') }}
-										Catégories planning
-									</a>
-								</li>
-                            </ul>
-                            <hr class="my-3">
-							<ul class="nav flex-column mb-auto">
-								<li class="nav-item">
-									<a class="nav-link d-flex align-items-center gap-2" href="{{ path('app_logout') }}">
-                                        {{ bootstrap_icon('door-closed') }}
-										Déconnexion
-									</a>
-								</li>
-							</ul>
-						</div>
-					</div>
+						</li>
+					</ul>
 				</div>
-				<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                    {% block body %}{% endblock %}
-				</main>
 			</div>
-		</div>
-	</body>
-</html>
+		</nav>
+		<main class="container"> {% block body %}{% endblock %}
+			</main>
+		</body>
+	</html>
