@@ -25,6 +25,9 @@ class Invoice
     #[ORM\OneToMany(mappedBy: 'invoice', targetEntity: InvoiceLine::class, orphanRemoval: true, cascade: ['persist', 'remove'])]
     private Collection $invoiceLines;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $fileName = null;
+
     public function __construct()
     {
         $this->invoiceLines = new ArrayCollection();
@@ -97,5 +100,17 @@ class Invoice
             $totalAmount += $invoiceLine->getPrice() * $invoiceLine->getQuantity();
         }
         return $totalAmount;
+    }
+
+    public function getFileName(): ?string
+    {
+        return $this->fileName;
+    }
+
+    public function setFileName(?string $fileName): self
+    {
+        $this->fileName = $fileName;
+
+        return $this;
     }
 }

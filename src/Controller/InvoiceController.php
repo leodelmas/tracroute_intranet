@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Invoice;
 use App\Form\InvoiceType;
 use App\Repository\InvoiceRepository;
+use App\Service\FileUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,13 +23,18 @@ class InvoiceController extends AbstractController
     }
 
     #[Route('/new', name: 'app_invoice_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, InvoiceRepository $invoiceRepository): Response
+    public function new(Request $request, InvoiceRepository $invoiceRepository, FileUploader $fileUploader): Response
     {
         $invoice = new Invoice();
         $form = $this->createForm(InvoiceType::class, $invoice);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $fileName = $form->get('file')->getData();
+            if ($fileName) {
+                $fileName = $fileUploader->upload($fileName);
+                $invoice->setFileName($fileName);
+            }
             $invoiceRepository->save($invoice, true);
 
             return $this->redirectToRoute('app_invoice_index', [], Response::HTTP_SEE_OTHER);
@@ -49,12 +55,17 @@ class InvoiceController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_invoice_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Invoice $invoice, InvoiceRepository $invoiceRepository): Response
+    public function edit(Request $request, Invoice $invoice, InvoiceRepository $invoiceRepository, FileUploader $fileUploader): Response
     {
         $form = $this->createForm(InvoiceType::class, $invoice);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $fileName = $form->get('file')->getData();
+            if ($fileName) {
+                $fileName = $fileUploader->upload($fileName);
+                $invoice->setFileName($fileName);
+            }
             $invoiceRepository->save($invoice, true);
 
             return $this->redirectToRoute('app_invoice_index', [], Response::HTTP_SEE_OTHER);

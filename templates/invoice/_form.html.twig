@@ -1,7 +1,8 @@
 {{ form_start(form) }}
     <div class="row">
-        <div class="col-sm-6">{{ form_row(form.reference) }}</div>
-        <div class="col-sm-6">{{ form_row(form.date) }}</div>
+        <div class="col-sm-4">{{ form_row(form.reference) }}</div>
+        <div class="col-sm-4">{{ form_row(form.date) }}</div>
+        <div class="col-sm-4">{{ form_row(form.file) }}</div>
         <div class="col-sm-6">
             <div class="d-flex justify-content-between">
 				{{ form_label(form.invoiceLines) }}
