@@ -4,12 +4,15 @@ namespace App\Controller;
 
 use App\Entity\Invoice;
 use App\Form\InvoiceType;
+use App\Repository\InvoiceLineRepository;
 use App\Repository\InvoiceRepository;
 use App\Service\FileUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use League\Csv\Writer;
+use SplTempFileObject;
 
 #[Route('/invoice')]
 class InvoiceController extends AbstractController
@@ -85,5 +88,23 @@ class InvoiceController extends AbstractController
         }
 
         return $this->redirectToRoute('app_invoice_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/export/{id}', name: 'app_invoice_export', methods: ['GET'])]
+    public function export(Invoice $invoice)
+    {
+        $fileLines = [];
+        foreach ($invoice->getInvoiceLines() as $key => $line) {
+            $fileLines[$key]["invoice"] = $invoice->getReference();
+            $fileLines[$key]["description"] = $line->getDescription();
+            $fileLines[$key]["price"] = $line->getPrice();
+            $fileLines[$key]["quantity"] = $line->getQuantity();
+        }
+        $fileLines[count($fileLines)]["total"] = "Total : " . $invoice->getTotal();
+        $csv = Writer::createFromFileObject(new SplTempFileObject());
+        $csv->insertOne(["Facture", "Description", "Prix", "Quantité"]);
+        $csv->insertAll($fileLines);
+        $csv->output('invoice_' . $invoice->getId() . '.csv');
+        die;
     }
 }

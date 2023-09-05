@@ -35,6 +35,7 @@
                         <a href="{{ asset('uploads/files/' ~ invoice.fileName) }}" download>{{ bootstrap_icon('download') }}</a>
                     {% endif %}
                     <a href="{{ path('app_invoice_edit', {'id': invoice.id}) }}">{{ bootstrap_icon('pencil-square') }}</a>
+                    <a href="{{ path('app_invoice_export', {'id': invoice.id}) }}">{{ bootstrap_icon('share') }}</a>
                 </td>
             </tr>
         {% else %}
