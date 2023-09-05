@@ -39,10 +39,11 @@ class ServiceNoteRepository extends ServiceEntityRepository
         }
     }
 
-    public function findLatestServiceNote(): ServiceNote
+    public function findLatestServiceNote(): ?ServiceNote
     {
         return $this->createQueryBuilder('sn')
             ->orderBy('sn.id', 'DESC')
+            ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
     }

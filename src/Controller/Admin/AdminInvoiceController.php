@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AdminInvoiceControllerPhpController extends AbstractController
+class AdminInvoiceController extends AbstractController
 {
     #[Route('/admin/invoice', name: 'app_admin_invoice_controller_php')]
     public function index(): Response

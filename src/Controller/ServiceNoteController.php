@@ -5,20 +5,20 @@ namespace App\Controller;
 use App\Entity\Reception;
 use App\Entity\ServiceNote;
 use App\Repository\ReceptionRepository;
-use App\Repository\ServiceNoteRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/service_note')]
 class ServiceNoteController extends AbstractController
 {
     #[Route('/', name: 'app_service_note_index', methods: ['GET'])]
-    public function index(ServiceNoteRepository $serviceNoteRepository): Response
+    public function index(Security $security): Response
     {
+        $user = $security->getUser();
         return $this->render('service_note/index.html.twig', [
-            'service_notes' => $serviceNoteRepository->findAll(),
+            'service_notes' => $user->getServiceNotes(),
         ]);
     }
 

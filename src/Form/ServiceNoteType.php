@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\ServiceNote;
+use App\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -16,6 +18,12 @@ class ServiceNoteType extends AbstractType
         $builder
             ->add('object', TextType::class, [
                 'label' => 'Objet'
+            ])
+            ->add('users', EntityType::class, [
+                'label' => 'Destinataires',
+                'class' => User::class,
+                'multiple' => true,
+                'choice_label' => 'email'
             ])
             ->add('content', TextareaType::class, [
                 'label' => 'Contenu'

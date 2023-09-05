@@ -42,12 +42,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Reception::class, orphanRemoval: true)]
     private Collection $receptions;
 
+    #[ORM\ManyToMany(targetEntity: ServiceNote::class, mappedBy: 'users')]
+    private Collection $serviceNotes;
+
     public function __construct()
     {
         $this->holidaysPeriods = new ArrayCollection();
         $this->plannedSlots = new ArrayCollection();
         $this->likes = new ArrayCollection();
         $this->receptions = new ArrayCollection();
+        $this->serviceNotes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -235,6 +239,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             if ($reception->getUser() === $this) {
                 $reception->setUser(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ServiceNote>
+     */
+    public function getServiceNotes(): Collection
+    {
+        return $this->serviceNotes;
+    }
+
+    public function addServiceNote(ServiceNote $serviceNote): self
+    {
+        if (!$this->serviceNotes->contains($serviceNote)) {
+            $this->serviceNotes->add($serviceNote);
+            $serviceNote->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeServiceNote(ServiceNote $serviceNote): self
+    {
+        if ($this->serviceNotes->removeElement($serviceNote)) {
+            $serviceNote->removeUser($this);
         }
 
         return $this;

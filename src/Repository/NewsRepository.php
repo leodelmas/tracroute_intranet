@@ -43,6 +43,7 @@ class NewsRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('n')
             ->orderBy('n.id', 'DESC')
+            ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
     }
